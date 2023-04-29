@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 const NewsCart = ({ News }) => {
   const { _id, title, author, image_url, details, rating, number, total_view } =
     News;
+    // console.log(_id)
   return (
     <div>
       <Card className="mb-4">
@@ -38,7 +39,7 @@ const NewsCart = ({ News }) => {
             ) : (
               <>
                 {details.slice(0, 250)}...
-                <Link to={`/news/$_id`}>
+                <Link to={`/news/${_id}`}>
                   <span className="text-decoration-none">read More</span>
                 </Link>
               </>

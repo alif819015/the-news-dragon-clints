@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Card } from "react-bootstrap";
-import { FaAlignLeft, FaChevronLeft } from "react-icons/fa";
+import { FaChevronLeft } from "react-icons/fa";
 import { Link, useLoaderData } from "react-router-dom";
 import EditorsInside from "../EditorsInside/EditorsInside";
 
@@ -10,6 +10,7 @@ const News = () => {
   const { title, image_url, details, category_id}= news;
   return (
     <div>
+
         <Card>
       <Card.Img variant="top" src={image_url} />
       <Card.Body>

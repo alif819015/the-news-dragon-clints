@@ -1,22 +1,44 @@
-import { createBrowserRouter } from "react-router-dom";
+import { Navigate, createBrowserRouter } from "react-router-dom";
 import Main from "../layout/Main";
 import Home from "../Page/Home/Home/Home";
 import Category from "../Page/Home/Category/Category";
 import NewsLayout from "../layout/newsLayout";
 import News from "../Page/News/News/News";
+import LoginLayout from "../layout/LoginLayout";
+import Login from "../Page/Home/Login/Login/Login";
+import Register from "../Page/Home/Login/Login/Register/Register";
+import PrivateRoute from "./PrivateRoute";
+import Trams from "../Page/Shared/Trams/Trams";
 
 const router = createBrowserRouter([
     {
         path: '/',
+        element: <LoginLayout></LoginLayout>,
+        children: [
+            {
+                path: '/',
+                element: <Navigate to="/category/0"></Navigate>
+            },
+            {
+                path:'login',
+                element: <Login></Login>
+            },
+            {
+                path: 'register',
+                element: <Register></Register>
+            },
+            {
+                path: 'trams',
+                element: <Trams></Trams>
+            }
+        ]
+    },
+    {
+        path: 'category',
         element: <Main></Main>,
         children:[
             {
-                path: '/',
-                element: <Category></Category>,
-                loader: () => fetch('http://localhost:5000/news')
-            },
-            {
-                path: 'category/:id',
+                path: ':id',
                 element: <Category></Category>,
                 loader: ({params}) => fetch(`http://localhost:5000/categories/${params.id}`)
             }
@@ -29,7 +51,7 @@ const router = createBrowserRouter([
         children: [
             {
                 path: ':id',
-                element: <News></News>,
+                element: <PrivateRoute><News></News></PrivateRoute>,
                 loader: ({params})=> fetch(`http://localhost:5000/news/${params.id}`)
             }
         ]
